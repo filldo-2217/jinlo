@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HealthMind</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#0f0f17;
+color:white;
+overflow-x:hidden;
+}
+
+.hidden{
+display:none;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero-inner{
+max-width:700px;
+}
+
+.hero h1{
+font-size:64px;
+margin-bottom:20px;
+}
+
+.hero p{
+color:#aaa;
+line-height:1.8;
+margin-bottom:40px;
+}
+
+.start-btn{
+padding:18px 38px;
+border:none;
+border-radius:14px;
+background:#7c3aed;
+color:white;
+font-size:18px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.start-btn:hover{
+transform:translateY(-3px);
+}
+
+.test-section{
+padding:80px 20px;
+}
+
+.card{
+max-width:900px;
+margin:auto;
+background:#171722;
+padding:40px;
+border-radius:28px;
+border:1px solid #2b2b40;
+}
+
+.step{
+color:#c084fc;
+margin-bottom:12px;
+}
+
+.section-title{
+font-size:42px;
+margin-bottom:30px;
+}
+
+.question{
+margin-bottom:40px;
+}
+
+.question h3{
+margin-bottom:20px;
+font-size:22px;
+}
+
+.options{
+display:grid;
+gap:12px;
+}
+
+.option{
+padding:18px;
+background:#202030;
+border-radius:14px;
+border:1px solid #32324d;
+cursor:pointer;
+transition:0.3s;
+}
+
+.option:hover{
+border-color:#7c3aed;
+}
+
+.option.active{
+background:#7c3aed;
+}
+
+.buttons{
+display:flex;
+justify-content:space-between;
+margin-top:40px;
+}
+
+.buttons button{
+padding:14px 30px;
+border:none;
+border-radius:12px;
+background:#7c3aed;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.result-section{
+padding:100px 20px;
+}
+
+.result-header{
+text-align:center;
+margin-bottom:60px;
+}
+
+.result-header h2{
+font-size:56px;
+margin-bottom:20px;
+}
+
+.score{
+font-size:100px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.risk{
+font-size:28px;
+color:#c084fc;
+}
+
+.result-card{
+background:#171722;
+border-radius:24px;
+padding:30px;
+margin-bottom:24px;
+border:1px solid #2b2b40;
+}
+
+.result-card h3{
+font-size:28px;
+margin-bottom:16px;
+}
+
+.result-card p{
+color:#aaa;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+.bar{
+width:100%;
+height:14px;
+background:#26263b;
+border-radius:999px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+background:#7c3aed;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:42px;
+}
+
+.section-title{
+font-size:30px;
+}
+
+.result-header h2{
+font-size:38px;
+}
+
+.score{
+font-size:70px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="hero" id="hero">
+
+<div class="hero-inner">
+
+<h1>
+스마트 자세 건강 분석
+</h1>
+
+<p>
+스마트폰 사용 습관과 자세 데이터를 기반으로
+신체 부담도를 분석합니다.
+</p>
+
+<button class="start-btn" onclick="startTest()">
+검사 시작
+</button>
+
+</div>
+
+</section>
+
+<section class="test-section hidden" id="testSection">
+
+<div class="card">
+
+<div class="step" id="stepText">
+STEP 1
+</div>
+
+<div class="section-title" id="sectionTitle">
+제목
+</div>
+
+<div id="questionArea"></div>
+
+<div class="buttons">
+
+<button onclick="prevStep()">
+이전
+</button>
+
+<button onclick="nextStep()">
+다음
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="result-section hidden" id="resultSection">
+
+<div class="result-header">
+
+<h2>
+건강 분석 결과
+</h2>
+
+<div class="score" id="totalScore">
+0
+</div>
+
+<div class="risk" id="riskText">
+분석중
+</div>
+
+</div>
+
+<div id="resultCards"></div>
+
+</section>
+
+<script>
+
+const sections = [
+
+{
+title:"거북목 · 상체 자세",
+
+questions:[
+
+{
+q:"고개를 앞으로 숙이는 편인가요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+},
+
+{
+q:"목이나 어깨 통증이 있나요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+},
+
+{
+q:"등을 굽힌 자세를 오래 유지하나요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+}
+
+]
+
+},
+
+{
+title:"손목 · 손가락 건강",
+
+questions:[
+
+{
+q:"손목 통증이 있나요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+},
+
+{
+q:"엄지 사용 빈도가 높은가요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+}
+
+]
+
+},
+
+{
+title:"턱관절 상태",
+
+questions:[
+
+{
+q:"턱 주변 불편감이 있나요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+},
+
+{
+q:"입을 벌릴 때 턱에서 소리가 나나요?",
+
+options:[
+["거의 없음",0],
+["가끔",1],
+["자주",2],
+["항상",3]
+]
+}
+
+]
+
+}
+
+];
+
+let current = 0;
+let answers = {};
+
+function startTest(){
+
+document.getElementById("hero")
+.classList.add("hidden");
+
+document.getElementById("testSection")
+.classList.remove("hidden");
+
+renderQuestions();
+
+}
+
+function renderQuestions(){
+
+const section = sections[current];
+
+document.getElementById("stepText")
+.innerText =
+"STEP " + (current + 1);
+
+document.getElementById("sectionTitle")
+.innerText =
+section.title;
+
+const area =
+document.getElementById("questionArea");
+
+area.innerHTML = "";
+
+section.questions.forEach((question,index)=>{
+
+let html = "";
+
+question.options.forEach((option)=>{
+
+html += `
+<div
+class="option"
+onclick="selectOption(${current},${index},${option[1]},this)">
+${option[0]}
+</div>
+`;
+
+});
+
+area.innerHTML += `
+<div class="question">
+
+<h3>
+${index + 1}. ${question.q}
+</h3>
+
+<div class="options">
+${html}
+</div>
+
+</div>
+`;
+
+});
+
+}
+
+function selectOption(
+sectionIndex,
+questionIndex,
+score,
+element
+){
+
+answers[
+sectionIndex + "-" + questionIndex
+] = score;
+
+const siblings =
+element.parentElement.querySelectorAll(".option");
+
+siblings.forEach((item)=>{
+item.classList.remove("active");
+});
+
+element.classList.add("active");
+
+}
+
+function nextStep(){
+
+if(current < sections.length - 1){
+
+current++;
+
+renderQuestions();
+
+}else{
+
+showResults();
+
+}
+
+}
+
+function prevStep(){
+
+if(current > 0){
+
+current--;
+
+renderQuestions();
+
+}
+
+}
+
+function showResults(){
+
+document.getElementById("testSection")
+.classList.add("hidden");
+
+document.getElementById("resultSection")
+.classList.remove("hidden");
+
+let total = 0;
+
+sections.forEach((section,sectionIndex)=>{
+
+section.questions.forEach((q,questionIndex)=>{
+
+total +=
+answers[
+sectionIndex + "-" + questionIndex
+] || 0;
+
+});
+
+});
+
+document.getElementById("totalScore")
+.innerText = total;
+
+let risk = "낮음";
+
+if(total >= 6){
+risk = "주의";
+}
+
+if(total >= 12){
+risk = "높음";
+}
+
+document.getElementById("riskText")
+.innerText = risk;
+
+renderResultCards(total);
+
+}
+
+function renderResultCards(total){
+
+const resultCards =
+document.getElementById("resultCards");
+
+resultCards.innerHTML = `
+
+<div class="result-card">
+
+<h3>
+자세 건강 분석
+</h3>
+
+<p>
+현재 점수는 ${total}점입니다.
+장시간 스마트폰 사용 습관과
+자세 유지 상태를 관리하는 것이 중요합니다.
+</p>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:${total * 5}%">
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
