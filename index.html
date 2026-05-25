@@ -1,273 +1,261 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>HealthMind</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
+
 body{
-  margin:0;
-  font-family: Pretendard, sans-serif;
-  background:#0b0717;
-  color:white;
-  overflow-x:hidden;
+margin:0;
+font-family:Pretendard,sans-serif;
+background:#07030f;
+color:white;
+overflow-x:hidden;
 }
 
-.bg-glow{
-  position:fixed;
-  width:500px;
-  height:500px;
-  border-radius:999px;
-  filter:blur(120px);
-  z-index:-1;
+.bg1{
+position:fixed;
+top:-200px;
+left:-100px;
+width:500px;
+height:500px;
+background:#7c3aed33;
+filter:blur(140px);
+border-radius:999px;
+z-index:-1;
 }
 
-.glow1{
-  background:#9333ea55;
-  top:-150px;
-  left:-100px;
-}
-
-.glow2{
-  background:#ec489955;
-  bottom:-150px;
-  right:-100px;
+.bg2{
+position:fixed;
+bottom:-200px;
+right:-100px;
+width:500px;
+height:500px;
+background:#ec489933;
+filter:blur(140px);
+border-radius:999px;
+z-index:-1;
 }
 
 .card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter:blur(20px);
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(24px);
+
+transform-style:preserve-3d;
+
+transition:
+all .5s ease;
+}
+
+.card:hover{
+transform:
+perspective(1200px)
+rotateX(2deg)
+rotateY(-2deg)
+translateY(-3px);
 }
 
 .option.active{
-  border-color:#c084fc;
-  background:linear-gradient(to right, rgba(192,132,252,0.25), rgba(236,72,153,0.18));
+border-color:#c084fc;
+background:
+linear-gradient(
+to right,
+rgba(192,132,252,0.28),
+rgba(236,72,153,0.2)
+);
 }
 
 .fade{
-  animation:fade .4s ease;
+animation:fade .5s ease;
 }
 
 @keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
+
+from{
+opacity:0;
+transform:translateY(30px);
 }
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.bar{
+height:18px;
+border-radius:999px;
+background:
+linear-gradient(
+to right,
+#a855f7,
+#ec4899
+);
+
+transition:1.2s;
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="bg-glow glow1"></div>
-<div class="bg-glow glow2"></div>
+<div class="bg1"></div>
+<div class="bg2"></div>
 
-<header class="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/20">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-    <div>
-      <h1 class="text-4xl font-black bg-gradient-to-r from-purple-300 to-pink-200 bg-clip-text text-transparent">
-        HealthMind
-      </h1>
-      <p class="text-gray-400 text-sm mt-1">스마트폰 자세 건강 자가진단</p>
-    </div>
-  </div>
-</header>
+<section id="hero"
+class="min-h-screen flex items-center">
 
-<section class="max-w-7xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-20 items-center">
+<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
 
 <div>
-  <div class="inline-block px-5 py-3 rounded-full text-purple-200 mb-8 border border-purple-400/20 bg-purple-500/10 backdrop-blur-xl">
-    Premium Health Analysis System
-  </div>
 
-  <h2 class="text-6xl font-black leading-tight mb-8">
-    스마트폰 사용으로 인한
-    <span class="block bg-gradient-to-r from-purple-300 to-white bg-clip-text text-transparent">
-      건강 상태 분석
-    </span>
-  </h2>
-
-  <p class="text-gray-300 text-lg leading-relaxed mb-10">
-    거북목, 손목 통증, 턱관절, 생활습관 등을 종합 분석하여
-    건강 위험도를 확인할 수 있습니다.
-  </p>
-
-  <button onclick="startTest()"
-    class="bg-gradient-to-r from-purple-400 to-pink-300 text-black font-black px-10 py-5 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/20">
-    건강 상태 검사하기
-  </button>
+<div class="inline-block px-5 py-3 rounded-full border border-purple-400/20 bg-purple-500/10 text-purple-200 mb-8">
+HealthMind Platform
 </div>
 
-<div class="relative h-[520px] flex items-center justify-center">
+<h1 class="text-7xl font-black leading-tight mb-8">
 
-  <div class="absolute w-[340px] h-[340px] rounded-full bg-purple-500/20 blur-3xl animate-pulse"></div>
+스마트폰 사용으로 인한
 
-  <div class="card rounded-[40px] p-10 w-full max-w-2xl transform hover:scale-[1.02] transition-all duration-700 shadow-2xl shadow-purple-500/20">
+<span class="block bg-gradient-to-r from-purple-300 to-white bg-clip-text text-transparent">
+건강 상태 분석
+</span>
 
-    <div class="flex items-center justify-between mb-10">
-      <div>
-        <h3 class="text-3xl font-black mb-2">건강 정보 미리보기</h3>
-        <p class="text-gray-400 text-sm">실제 건강 자료 기반 설명 콘텐츠</p>
-      </div>
-    </div>
+</h1>
 
-    <div class="grid md:grid-cols-2 gap-5">
+<p class="text-gray-300 text-xl leading-relaxed mb-10">
 
-      <div class="rounded-3xl overflow-hidden border border-white/10 bg-black/20">
-        <img src="neck-weight.jpg" class="w-full h-52 object-cover">
-        <div class="p-5">
-          <h4 class="text-xl font-bold mb-2">목 각도와 경추 부담</h4>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            고개가 앞으로 숙여질수록 경추에 가해지는 하중이 증가할 수 있습니다.
-          </p>
-        </div>
-      </div>
+거북목, 턱관절, 손목 통증,
+근골격계 부담 등을 분석하여
+현재 건강 상태를 확인할 수 있습니다.
 
-      <div class="rounded-3xl overflow-hidden border border-white/10 bg-black/20">
-        <img src="posture-angle.jpg" class="w-full h-52 object-cover">
-        <div class="p-5">
-          <h4 class="text-xl font-bold mb-2">잘못된 자세 변화</h4>
-          <p class="text-gray-400 text-sm leading-relaxed">
-            장시간 스마트폰 사용 시 목과 허리 정렬이 변형될 수 있습니다.
-          </p>
-        </div>
-      </div>
+</p>
 
-    </div>
+<button
+onclick="startTest()"
+class="bg-gradient-to-r from-purple-400 to-pink-300 text-black font-black px-10 py-5 rounded-2xl hover:scale-105 transition-all duration-300 shadow-2xl shadow-purple-500/20">
 
-  </div>
+건강 상태 검사하기
+
+</button>
+
+</div>
+
+<div class="relative">
+
+<div class="absolute inset-0 bg-purple-500/20 blur-3xl rounded-full"></div>
+
+<div class="card rounded-[40px] p-8 relative">
+
+<img
+src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop"
+class="rounded-3xl w-full h-[500px] object-cover">
+
+</div>
+
+</div>
 
 </div>
 
 </section>
 
-<section id="testSection" class="hidden max-w-5xl mx-auto px-6 pb-24">
-
-<div class="text-center mb-14">
-  <p class="text-purple-300 font-bold mb-4">SELF DIAGNOSIS</p>
-  <h2 class="text-5xl font-black mb-5">자세 건강 자가 진단</h2>
-  <p class="text-gray-400 text-lg">실제 점수를 계산하여 건강 상태를 분석합니다.</p>
-</div>
+<section
+id="testSection"
+class="hidden max-w-5xl mx-auto px-6 py-24">
 
 <div id="questionBox"></div>
 
 </section>
 
-<section id="resultSection" class="hidden max-w-6xl mx-auto px-6 pb-32">
+<section
+id="resultSection"
+class="hidden max-w-6xl mx-auto px-6 pb-32">
 
 <div class="card rounded-[40px] p-10 fade">
 
 <div class="text-center mb-16">
-  <h2 class="text-6xl font-black mb-6 bg-gradient-to-r from-purple-300 to-pink-200 bg-clip-text text-transparent">
-    분석 결과
-  </h2>
 
-  <div id="totalScore" class="text-7xl font-black mb-5"></div>
+<h2 class="text-6xl font-black mb-6 bg-gradient-to-r from-purple-300 to-white bg-clip-text text-transparent">
 
-  <div id="riskLevel" class="text-3xl font-bold mb-6"></div>
+건강 분석 결과
 
-  <p id="riskDescription" class="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto"></p>
+</h2>
+
+<div
+id="totalScore"
+class="text-7xl font-black mb-5">
 </div>
 
-<div class="mb-16">
-  <h3 class="text-3xl font-black mb-10">분야별 건강 분석</h3>
-  <div id="graphArea" class="space-y-8"></div>
-
-  <div class="mt-16 card rounded-[36px] p-8 overflow-x-auto">
-    <div class="flex justify-between items-center mb-8">
-      <h3 class="text-3xl font-black">상세 분석표</h3>
-      <div class="text-sm text-gray-400">분야별 위험 분석 데이터</div>
-    </div>
-
-    <table class="w-full min-w-[700px] border-collapse">
-      <thead>
-        <tr class="border-b border-white/10 text-left text-purple-200">
-          <th class="pb-5">분야</th>
-          <th class="pb-5">점수</th>
-          <th class="pb-5">위험도</th>
-          <th class="pb-5">상태</th>
-          <th class="pb-5">권장 사항</th>
-        </tr>
-      </thead>
-
-      <tbody id="analysisTable"></tbody>
-    </table>
-  </div>
-
-  <div class="mt-16 grid lg:grid-cols-3 gap-6">
-
-    <div class="card rounded-3xl p-8">
-      <h4 class="text-2xl font-black mb-6">건강 위험 요약</h4>
-      <div id="summaryBox" class="space-y-4 text-gray-300"></div>
-    </div>
-
-    <div class="card rounded-3xl p-8">
-      <h4 class="text-2xl font-black mb-6">사용 습관 분석</h4>
-      <div id="habitBox" class="space-y-4 text-gray-300"></div>
-    </div>
-
-    <div class="card rounded-3xl p-8">
-      <h4 class="text-2xl font-black mb-6">추천 관리 방법</h4>
-      <div id="solutionBox" class="space-y-4 text-gray-300"></div>
-    </div>
-
-  </div>
+<div
+id="riskLevel"
+class="text-3xl font-bold mb-6">
 </div>
 
-<div class="mt-16 card rounded-[36px] p-8 overflow-hidden">
-  <div class="flex justify-between items-center mb-8">
-    <div>
-      <h3 class="text-3xl font-black mb-2">건강 자료 가이드</h3>
-      <p class="text-gray-400 text-sm">실제 자세 관련 참고 이미지</p>
-    </div>
-  </div>
+<p
+id="riskText"
+class="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+</p>
 
-  <div class="grid lg:grid-cols-3 gap-6">
-
-    <div class="rounded-3xl overflow-hidden border border-white/10 bg-black/20">
-      <img src="neck-structure.jpg" class="w-full h-64 object-cover">
-      <div class="p-5">
-        <h4 class="text-xl font-bold mb-2">거북목 구조</h4>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          목이 앞으로 나올수록 목 근육과 턱 주변 근육의 긴장이 증가할 수 있습니다.
-        </p>
-      </div>
-    </div>
-
-    <div class="rounded-3xl overflow-hidden border border-white/10 bg-black/20">
-      <img src="wrist-pain.jpg" class="w-full h-64 object-cover">
-      <div class="p-5">
-        <h4 class="text-xl font-bold mb-2">손목 사용 부담</h4>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          반복적인 엄지 사용은 손목과 힘줄에 부담을 줄 수 있습니다.
-        </p>
-      </div>
-    </div>
-
-    <div class="rounded-3xl overflow-hidden border border-white/10 bg-black/20">
-      <video controls class="w-full h-64 object-cover bg-black">
-        <source src="stretching-guide.mp4" type="video/mp4">
-      </video>
-      <div class="p-5">
-        <h4 class="text-xl font-bold mb-2">스트레칭 가이드</h4>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          간단한 스트레칭을 통해 목과 어깨 긴장을 완화할 수 있습니다.
-        </p>
-      </div>
-    </div>
-
-  </div>
 </div>
 
-<div>
-  <h3 class="text-3xl font-black mb-10">맞춤 피드백</h3>
-  <div id="feedbackArea" class="grid gap-6"></div>
+<div
+id="graphArea"
+class="space-y-8">
+</div>
+
+<div class="mt-20">
+
+<h3 class="text-4xl font-black mb-8">
+상세 분석표
+</h3>
+
+<div class="card rounded-[30px] p-8 overflow-x-auto">
+
+<table class="w-full min-w-[700px] border-separate border-spacing-y-3">
+
+<thead>
+
+<tr class="text-left text-purple-200">
+
+<th>분야</th>
+<th>점수</th>
+<th>위험도</th>
+<th>상태</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableBody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="mt-20">
+
+<h3 class="text-4xl font-black mb-8">
+맞춤 피드백
+</h3>
+
+<div
+id="feedbackArea"
+class="grid gap-6">
+</div>
+
 </div>
 
 </div>
@@ -277,360 +265,575 @@ body{
 <script>
 
 const sections = [
+
 {
- title:'📱 스마트폰 사용',
- key:'phone',
- max:9,
- feedback:[
-   '사용 시간이 적절하며 건강한 사용 습관을 유지하고 있습니다.',
-   '스마트폰 사용 시간이 다소 길어질 수 있어 주의가 필요합니다.',
-   '장시간 스마트폰 사용으로 인해 신체 부담이 증가할 가능성이 높습니다.'
- ],
- questions:[
-  ['하루 스마트폰 사용 시간은?', ['1시간 미만',0], ['1~3시간',1], ['3~5시간',2], ['5시간 이상',3]],
-  ['한 번 사용할 때 평균 사용 시간은?', ['10분 이하',0], ['10~30분',1], ['30분~1시간',2], ['1시간 이상',3]],
-  ['휴식 없이 계속 사용하는 편인가요?', ['거의 아니다',0], ['가끔 그렇다',1], ['자주 그렇다',2], ['항상 그렇다',3]],
- ]
+title:'턱관절 상태',
+key:'jaw',
+max:9,
+
+feedback:[
+'턱관절 상태가 안정적입니다.',
+'턱 주변 긴장 습관이 일부 나타날 수 있습니다.',
+'턱관절 부담 위험이 높은 상태입니다.'
+],
+
+questions:[
+
+[
+'턱 주변에 뻐근함이 있나요?',
+['전혀 없음',0],
+['가끔 있음',1],
+['자주 있음',2],
+['거의 항상',3]
+],
+
+[
+'입을 벌릴 때 소리가 나나요?',
+['없음',0],
+['가끔 남',1],
+['자주 남',2],
+['항상 남',3]
+],
+
+[
+'이를 악무는 습관이 있나요?',
+['전혀 없음',0],
+['가끔 있음',1],
+['자주 있음',2],
+['항상 있음',3]
+]
+
+]
 },
+
 {
- title:'📐 거북목·상체 자세',
- key:'neck',
- max:12,
- feedback:[
-   '비교적 바른 자세를 유지하고 있습니다.',
-   '거북목 초기 위험이 증가하고 있습니다.',
-   '거북목 자세가 뚜렷하게 나타나고 있습니다.'
- ],
- questions:[
-  ['고개를 앞으로 숙이나요?', ['거의 숙이지 않음',0], ['약간 숙임',1], ['많이 숙임',2], ['매우 많이 숙임',3]],
-  ['거북목 느낌이 있나요?', ['전혀 없음',0], ['가끔 있음',1], ['자주 있음',2], ['항상 있음',3]],
-  ['어깨가 앞으로 말리나요?', ['없음',0], ['가끔 있음',1], ['자주 있음',2], ['항상 있음',3]],
-  ['목·어깨 피로가 있나요?', ['거의 없음',0], ['가끔 있음',1], ['자주 있음',2], ['항상 있음',3]],
- ]
+title:'거북목 · 상체 자세',
+key:'neck',
+max:12,
+
+feedback:[
+'비교적 바른 자세를 유지하고 있습니다.',
+'거북목 초기 위험이 증가하고 있습니다.',
+'거북목 자세 위험이 높은 상태입니다.'
+],
+
+questions:[
+
+[
+'고개를 앞으로 숙이나요?',
+['거의 숙이지 않음',0],
+['약간 숙임',1],
+['많이 숙임',2],
+['매우 많이 숙임',3]
+],
+
+[
+'어깨가 앞으로 말리나요?',
+['없음',0],
+['가끔 있음',1],
+['자주 있음',2],
+['항상 있음',3]
+],
+
+[
+'목·어깨 피로가 있나요?',
+['거의 없음',0],
+['가끔 있음',1],
+['자주 있음',2],
+['항상 있음',3]
+],
+
+[
+'장시간 같은 자세를 유지하나요?',
+['거의 없음',0],
+['가끔 있음',1],
+['자주 있음',2],
+['항상 있음',3]
+]
+
+]
 },
+
 {
- title:'💀 근골격계 통증',
- key:'pain',
- max:9,
- feedback:[
-   '통증이 거의 없는 건강한 상태입니다.',
-   '근육 긴장이 일부 나타날 수 있습니다.',
-   '목과 어깨 근육에 부담이 누적된 상태입니다.'
- ],
- questions:[
-  ['목 통증 빈도는?', ['없음',0], ['가끔',1], ['자주',2], ['거의 항상',3]],
-  ['어깨·등 통증 빈도는?', ['없음',0], ['가끔',1], ['자주',2], ['거의 항상',3]],
-  ['사용 후 통증이 심해지나요?', ['전혀 아니다',0], ['아니다',1], ['그렇다',2], ['매우 그렇다',3]],
- ]
+title:'근골격계 통증',
+key:'pain',
+max:9,
+
+feedback:[
+'통증이 거의 없는 상태입니다.',
+'근육 긴장이 일부 나타날 수 있습니다.',
+'근골격계 부담이 누적된 상태입니다.'
+],
+
+questions:[
+
+[
+'목 통증 빈도는?',
+['없음',0],
+['가끔',1],
+['자주',2],
+['거의 항상',3]
+],
+
+[
+'어깨·등 통증 빈도는?',
+['없음',0],
+['가끔',1],
+['자주',2],
+['거의 항상',3]
+],
+
+[
+'사용 후 통증이 심해지나요?',
+['전혀 아니다',0],
+['아니다',1],
+['그렇다',2],
+['매우 그렇다',3]
+]
+
+]
 },
+
 {
- title:'✋ 손목 / 건초염',
- key:'wrist',
- max:6,
- feedback:[
-   '손목 사용이 안정적인 상태입니다.',
-   '반복 사용 피로가 나타날 수 있습니다.',
-   '손목 및 엄지 사용 부담이 높은 상태입니다.'
- ],
- questions:[
-  ['손목 통증이 있나요?', ['없음',0], ['가끔',1], ['자주',2], ['거의 항상',3]],
-  ['엄지를 많이 사용하나요?', ['거의 아니다',0], ['가끔',1], ['자주',2], ['항상',3]],
- ]
+title:'손목 · 건초염',
+key:'wrist',
+max:6,
+
+feedback:[
+'손목 상태가 안정적입니다.',
+'반복 사용 피로가 나타날 수 있습니다.',
+'손목 부담 위험이 높은 상태입니다.'
+],
+
+questions:[
+
+[
+'손목 통증이 있나요?',
+['없음',0],
+['가끔',1],
+['자주',2],
+['거의 항상',3]
+],
+
+[
+'엄지를 많이 사용하나요?',
+['거의 아니다',0],
+['가끔',1],
+['자주',2],
+['항상',3]
+]
+
+]
 }
+
 ];
 
 let current = 0;
 const answers = {};
 
 function startTest(){
-  document.getElementById('testSection').classList.remove('hidden');
-  renderSection();
-  document.getElementById('testSection').scrollIntoView({behavior:'smooth'});
+
+document.getElementById('hero')
+.style.display='none';
+
+document.getElementById('testSection')
+.classList.remove('hidden');
+
+renderSection();
+
 }
 
 function renderSection(){
 
- const section = sections[current];
- const box = document.getElementById('questionBox');
+const section = sections[current];
+const box = document.getElementById('questionBox');
 
- let html = `
- <div class="card rounded-[40px] p-10 fade">
+let html = `
 
- <div class="flex justify-between items-center mb-10">
-   <div>
-     <h3 class="text-4xl font-black mb-3">${section.title}</h3>
-     <p class="text-gray-400">${current+1} / ${sections.length}</p>
-   </div>
+<div class="card rounded-[40px] p-10 fade">
 
-   <div class="text-purple-300 font-bold">
-     최대 ${section.max}점
-   </div>
- </div>
- `;
+<div class="flex justify-between items-center mb-10">
 
- section.questions.forEach((q,index)=>{
+<div>
 
- html += `
- <div class="mb-10">
-   <h4 class="text-2xl font-bold mb-5">${index+1}. ${q[0]}</h4>
+<h2 class="text-5xl font-black mb-3">
+${section.title}
+</h2>
 
-   <div class="grid md:grid-cols-2 gap-4">
- `;
+<p class="text-gray-400">
+${current+1} / ${sections.length}
+</p>
 
- for(let i=1;i<q.length;i++){
- html += `
- <button
-   onclick="selectAnswer(${current},${index},${q[i][1]},this)"
-   class="option card rounded-2xl p-5 text-left hover:border-purple-400 transition-all duration-300">
-   ${q[i][0]}
- </button>
- `;
- }
+</div>
 
- html += `</div></div>`;
+<div class="text-purple-300 font-bold">
+최대 ${section.max}점
+</div>
 
- });
+</div>
 
- html += `
- <div class="flex justify-between mt-14">
+`;
 
- <button
- onclick="prevSection()"
- class="card px-8 py-4 rounded-2xl ${current===0 ? 'opacity-30 pointer-events-none':''}">
- 이전
- </button>
+section.questions.forEach((q,index)=>{
 
- <button
- onclick="nextSection()"
- class="bg-gradient-to-r from-purple-400 to-pink-300 text-black font-black px-8 py-4 rounded-2xl hover:scale-105 transition-all duration-300">
- ${current===sections.length-1 ? '결과 보기':'다음'}
- </button>
+html += `
 
- </div>
- </div>
- `;
+<div class="mb-10">
 
- box.innerHTML = html;
+<h3 class="text-2xl font-bold mb-5">
+${index+1}. ${q[0]}
+</h3>
+
+<div class="grid md:grid-cols-2 gap-4">
+
+`;
+
+for(let i=1;i<q.length;i++){
+
+html += `
+
+<button
+onclick="selectAnswer(${current},${index},${q[i][1]},this)"
+class="option card rounded-2xl p-5 text-left">
+
+${q[i][0]}
+
+</button>
+
+`;
+
 }
 
-function selectAnswer(sectionIndex, questionIndex, score, element){
+html += `</div></div>`;
 
- answers[`${sectionIndex}-${questionIndex}`] = score;
+});
 
- const parent = element.parentElement;
- parent.querySelectorAll('.option').forEach(btn=>{
-   btn.classList.remove('active');
- });
+html += `
 
- element.classList.add('active');
+<div class="flex justify-between mt-14">
+
+<button
+onclick="prevSection()"
+class="card px-8 py-4 rounded-2xl ${current===0 ? 'opacity-30 pointer-events-none':''}">
+
+이전
+
+</button>
+
+<button
+onclick="nextSection()"
+class="bg-gradient-to-r from-purple-400 to-pink-300 text-black font-black px-8 py-4 rounded-2xl">
+
+${current===sections.length-1 ? '결과 보기':'다음'}
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+box.innerHTML = html;
+
+}
+
+function selectAnswer(sectionIndex,questionIndex,score,element){
+
+answers[`${sectionIndex}-${questionIndex}`] = score;
+
+const parent = element.parentElement;
+
+parent.querySelectorAll('.option').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+element.classList.add('active');
+
 }
 
 function nextSection(){
 
- const totalQuestions = sections[current].questions.length;
- let answered = 0;
+const totalQuestions =
+sections[current].questions.length;
 
- for(let i=0;i<totalQuestions;i++){
-   if(answers[`${current}-${i}`] !== undefined){
-     answered++;
-   }
- }
+let answered = 0;
 
- if(answered !== totalQuestions){
-   alert('모든 질문에 답해주세요.');
-   return;
- }
+for(let i=0;i<totalQuestions;i++){
 
- if(current < sections.length-1){
-   current++;
-   renderSection();
-   document.getElementById('testSection').scrollIntoView({behavior:'smooth', block:'start'});
- } else {
-   showResults();
- }
+if(
+answers[`${current}-${i}`]
+!== undefined
+){
+answered++;
+}
+
+}
+
+if(answered !== totalQuestions){
+
+alert('모든 질문에 답해주세요.');
+return;
+
+}
+
+if(current < sections.length-1){
+
+current++;
+renderSection();
+
+}else{
+
+showResults();
+
+}
+
 }
 
 function prevSection(){
- if(current > 0){
-   current--;
-   renderSection();
-   document.getElementById('testSection').scrollIntoView({behavior:'smooth', block:'start'});
- }
+
+if(current > 0){
+
+current--;
+renderSection();
+
+}
+
 }
 
 function showResults(){
 
- document.getElementById('testSection').classList.add('hidden');
- document.getElementById('resultSection').classList.remove('hidden');
+document.getElementById('testSection')
+.classList.add('hidden');
 
- let total = 0;
- const scores = {};
+document.getElementById('resultSection')
+.classList.remove('hidden');
 
- sections.forEach((section,sIndex)=>{
+let total = 0;
+const scores = {};
 
-   let sectionScore = 0;
+sections.forEach((section,sIndex)=>{
 
-   section.questions.forEach((q,qIndex)=>{
-     sectionScore += answers[`${sIndex}-${qIndex}`] || 0;
-   });
+let score = 0;
 
-   scores[section.key] = sectionScore;
-   total += sectionScore;
- });
+section.questions.forEach((q,qIndex)=>{
 
- document.getElementById('totalScore').innerText = `${total}점`;
+score +=
+answers[`${sIndex}-${qIndex}`] || 0;
 
- const level = document.getElementById('riskLevel');
- const desc = document.getElementById('riskDescription');
+});
 
- if(total <= 10){
-   level.innerHTML = '🟢 낮음';
-   desc.innerText = '현재 건강 상태는 비교적 안정적이며 올바른 스마트폰 사용 습관을 유지하고 있습니다.';
- }
- else if(total <= 20){
-   level.innerHTML = '🟡 보통';
-   desc.innerText = '생활습관 개선과 자세 교정이 필요한 상태입니다.';
- }
- else if(total <= 30){
-   level.innerHTML = '🟠 높음';
-   desc.innerText = '근골격계 부담이 증가하고 있으며 사용 습관 개선이 필요합니다.';
- }
- else {
-   level.innerHTML = '🔴 매우 높음';
-   desc.innerText = '거북목 및 손목 통증 위험이 높은 상태이며 지속적인 관리가 필요합니다.';
- }
+scores[section.key] = score;
+total += score;
 
- renderGraphs(scores);
- renderFeedback(scores);
+});
 
- document.getElementById('resultSection').scrollIntoView({behavior:'smooth'});
+document.getElementById('totalScore')
+.innerText = `${total}점`;
+
+const risk =
+document.getElementById('riskLevel');
+
+const text =
+document.getElementById('riskText');
+
+if(total <= 10){
+
+risk.innerText = '낮음';
+text.innerText =
+'현재 건강 상태는 비교적 안정적인 상태입니다.';
+
+}
+else if(total <= 20){
+
+risk.innerText = '보통';
+text.innerText =
+'생활습관 및 자세 교정이 필요한 상태입니다.';
+
+}
+else if(total <= 30){
+
+risk.innerText = '높음';
+text.innerText =
+'근골격계 부담이 증가하고 있는 상태입니다.';
+
+}
+else{
+
+risk.innerText = '매우 높음';
+text.innerText =
+'지속적인 자세 관리와 생활습관 개선이 필요한 상태입니다.';
+
+}
+
+renderGraphs(scores);
+renderFeedback(scores);
+
 }
 
 function renderGraphs(scores){
 
- const area = document.getElementById('graphArea');
- const table = document.getElementById('analysisTable');
- const summary = document.getElementById('summaryBox');
- const habit = document.getElementById('habitBox');
- const solution = document.getElementById('solutionBox');
+const area =
+document.getElementById('graphArea');
 
- area.innerHTML = '';
- table.innerHTML = '';
- summary.innerHTML = '';
- habit.innerHTML = '';
- solution.innerHTML = '';
+const table =
+document.getElementById('tableBody');
 
- sections.forEach(section=>{
+area.innerHTML='';
+table.innerHTML='';
 
-   const score = scores[section.key];
-   const percent = (score / section.max) * 100;
+sections.forEach(section=>{
 
-   let color = 'from-green-400 to-emerald-300';
-   let risk = '낮음';
-   let state = '안정적';
-   let tip = '현재 습관 유지';
+const score =
+scores[section.key];
 
-   if(percent >= 70){
-     color = 'from-red-400 to-orange-400';
-     risk = '높음';
-     state = '지속적 관리 필요';
-     tip = '사용 시간 감소 및 스트레칭 권장';
-   }
-   else if(percent >= 40){
-     color = 'from-yellow-300 to-orange-300';
-     risk = '보통';
-     state = '생활습관 개선 필요';
-     tip = '자세 교정 권장';
-   }
+const percent =
+(score / section.max) * 100;
 
-   area.innerHTML += `
-   <div class="card rounded-[32px] p-8 hover:scale-[1.01] transition-all duration-500 shadow-xl shadow-purple-500/10">
+let risk='낮음';
+let state='안정적';
 
-     <div class="flex justify-between items-center mb-5">
-       <div>
-         <h4 class="text-3xl font-black mb-2">${section.title}</h4>
-         <p class="text-gray-400 text-sm">스마트 건강 분석 데이터</p>
-       </div>
+if(percent >= 70){
 
-       <div class="text-right">
-         <div class="text-4xl font-black">${score}</div>
-         <div class="text-gray-400 text-sm">/ ${section.max}</div>
-       </div>
-     </div>
+risk='높음';
+state='관리 필요';
 
-     <div class="h-5 bg-black/30 rounded-full overflow-hidden mb-4">
-       <div class="h-full bg-gradient-to-r ${color} rounded-full transition-all duration-1000" style="width:${percent}%"></div>
-     </div>
+}
+else if(percent >= 40){
 
-     <div class="flex justify-between text-sm">
-       <span class="text-gray-300">위험도 : ${risk}</span>
-       <span class="text-gray-400">${Math.round(percent)}%</span>
-     </div>
+risk='보통';
+state='주의 필요';
 
-   </div>
-   `;
+}
 
-   table.innerHTML += `
-   <tr class="border-b border-white/5 hover:bg-white/5 transition-all duration-300">
-     <td class="py-5 font-semibold">${section.title}</td>
-     <td class="py-5">${score} / ${section.max}</td>
-     <td class="py-5">${risk}</td>
-     <td class="py-5 text-gray-300">${state}</td>
-     <td class="py-5 text-purple-200">${tip}</td>
-   </tr>
-   `;
+area.innerHTML += `
 
- });
+<div class="card rounded-[36px] p-8">
 
- const highRisk = Object.values(scores).filter(v => v >= 6).length;
+<div class="flex justify-between mb-6">
 
- summary.innerHTML = `
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">총 ${highRisk}개의 분야에서 높은 부담 패턴이 감지되었습니다.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">장시간 스마트폰 사용 습관 여부를 확인할 필요가 있습니다.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">현재 응답 데이터를 기반으로 자세 부담도를 분석했습니다.</div>
- `;
+<div>
 
- habit.innerHTML = `
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">휴식 없이 사용하는 패턴 여부를 점검하세요.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">목이 앞으로 기울어지는 습관 여부를 확인하세요.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">손목 반복 사용 빈도가 높을 경우 피로가 증가할 수 있습니다.</div>
- `;
+<h3 class="text-3xl font-black mb-2">
+${section.title}
+</h3>
 
- solution.innerHTML = `
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">30분 사용 후 5분 정도 휴식을 권장합니다.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">화면을 눈높이 가까이 유지하면 목 부담 감소에 도움이 됩니다.</div>
- <div class="p-4 rounded-2xl bg-white/5 border border-white/5">간단한 목·어깨 스트레칭을 주기적으로 진행하세요.</div>
- `;
+<p class="text-gray-400">
+건강 상태 분석
+</p>
+
+</div>
+
+<div class="text-right">
+
+<div class="text-5xl font-black">
+${score}
+</div>
+
+<div class="text-gray-400">
+/ ${section.max}
+</div>
+
+</div>
+
+</div>
+
+<div class="w-full h-5 bg-black/30 rounded-full overflow-hidden mb-5">
+
+<div
+class="bar"
+style="width:${percent}%">
+</div>
+
+</div>
+
+<div class="flex justify-between text-sm">
+
+<span>${risk}</span>
+<span>${Math.round(percent)}%</span>
+
+</div>
+
+</div>
+
+`;
+
+table.innerHTML += `
+
+<tr class="bg-white/5">
+
+<td class="py-5 px-4 rounded-l-2xl">
+${section.title}
+</td>
+
+<td class="py-5 px-4">
+${score} / ${section.max}
+</td>
+
+<td class="py-5 px-4">
+${risk}
+</td>
+
+<td class="py-5 px-4 rounded-r-2xl">
+${state}
+</td>
+
+</tr>
+
+`;
+
+});
+
 }
 
 function renderFeedback(scores){
 
- const area = document.getElementById('feedbackArea');
- area.innerHTML = '';
+const area =
+document.getElementById('feedbackArea');
 
- sections.forEach(section=>{
+area.innerHTML='';
 
-   const score = scores[section.key];
-   let text = '';
+sections.forEach(section=>{
 
-   if(score <= section.max * 0.3){
-     text = section.feedback[0];
-   }
-   else if(score <= section.max * 0.6){
-     text = section.feedback[1];
-   }
-   else {
-     text = section.feedback[2];
-   }
+const score =
+scores[section.key];
 
-   area.innerHTML += `
-   <div class="card rounded-3xl p-6">
-     <h4 class="text-2xl font-black mb-4">${section.title}</h4>
-     <p class="text-gray-300 leading-relaxed text-lg">${text}</p>
-   </div>
-   `;
+let text='';
 
- });
+if(score <= section.max * 0.3){
+
+text = section.feedback[0];
+
+}
+else if(score <= section.max * 0.6){
+
+text = section.feedback[1];
+
+}
+else{
+
+text = section.feedback[2];
+
+}
+
+area.innerHTML += `
+
+<div class="card rounded-[32px] p-8">
+
+<h3 class="text-3xl font-black mb-5">
+${section.title}
+</h3>
+
+<p class="text-gray-300 leading-relaxed text-lg">
+${text}
+</p>
+
+</div>
+
+`;
+
+});
+
 }
 
 </script>
