@@ -1,0 +1,374 @@
+/* =========================
+   SCHOOL SURVEY
+   Main JavaScript
+========================= */
+
+const surveyList = document.getElementById("surveyList");
+const surveyCount = document.getElementById("surveyCount");
+const searchInput = document.getElementById("searchInput");
+const clearSearch = document.getElementById("clearSearch");
+const emptyState = document.getElementById("emptyState");
+
+const filterButtons = document.querySelectorAll(".filter-button");
+
+const qrModal = document.getElementById("qrModal");
+const modalClose = document.getElementById("modalClose");
+
+const qrTitle = document.getElementById("qrTitle");
+const qrContainer = document.getElementById("qrcode");
+const downloadQR = document.getElementById("downloadQR");
+
+let surveys = [];
+let selectedGrade = "all";
+let selectedQR = null;
+
+
+/* =========================
+   LOAD SURVEYS
+========================= */
+
+async function loadSurveys() {
+
+    try {
+
+        const response = await fetch("data/surveys.json");
+
+        if (!response.ok) {
+            throw new Error("설문 데이터를 불러올 수 없습니다.");
+        }
+
+        surveys = await response.json();
+
+        renderSurveys();
+
+    } catch (error) {
+
+        console.error(error);
+
+        surveyList.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">!</div>
+                <h3>설문을 불러오지 못했습니다.</h3>
+                <p>잠시 후 다시 시도해주세요.</p>
+            </div>
+        `;
+
+    }
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderSurveys() {
+
+    const keyword = searchInput.value
+        .trim()
+        .toLowerCase();
+
+
+    const filteredSurveys = surveys.filter(survey => {
+
+        const gradeMatch =
+            selectedGrade === "all" ||
+            String(survey.grade) === selectedGrade ||
+            survey.grade === "전체";
+
+
+        const searchMatch =
+            survey.title.toLowerCase().includes(keyword) ||
+            survey.description.toLowerCase().includes(keyword);
+
+
+        return gradeMatch && searchMatch;
+
+    });
+
+
+    surveyCount.textContent = filteredSurveys.length;
+
+
+    if (filteredSurveys.length === 0) {
+
+        surveyList.innerHTML = "";
+
+        emptyState.classList.remove("hidden");
+
+        return;
+    }
+
+
+    emptyState.classList.add("hidden");
+
+
+    surveyList.innerHTML = filteredSurveys
+        .map(createSurveyCard)
+        .join("");
+}
+
+
+/* =========================
+   SURVEY CARD
+========================= */
+
+function createSurveyCard(survey) {
+
+    const isClosed = survey.status === "closed";
+
+    const gradeText =
+        survey.grade === "all"
+            ? "전체"
+            : `${survey.grade}학년`;
+
+
+    const statusText =
+        isClosed
+            ? "마감"
+            : "진행 중";
+
+
+    return `
+
+        <article class="survey-card ${isClosed ? "closed" : ""}">
+
+            <div class="survey-main">
+
+                <div class="survey-meta">
+
+                    <span class="grade-badge">
+                        ${gradeText}
+                    </span>
+
+                    <span class="status-badge ${isClosed
+                        ? "status-closed"
+                        : "status-active"}">
+
+                        ${statusText}
+
+                    </span>
+
+                </div>
+
+
+                <h3 class="survey-title">
+                    ${escapeHTML(survey.title)}
+                </h3>
+
+
+                <p class="survey-description">
+                    ${escapeHTML(survey.description)}
+                </p>
+
+
+                <p class="survey-date">
+                    마감일 · ${survey.deadline}
+                </p>
+
+            </div>
+
+
+            <div class="survey-actions">
+
+                <button
+                    class="qr-button"
+                    onclick="openQR('${escapeAttribute(survey.title)}', '${escapeAttribute(survey.url)}')"
+                >
+                    QR
+                </button>
+
+
+                <a
+                    href="${survey.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="participate-button"
+                >
+                    참여하기
+                </a>
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+
+/* =========================
+   GRADE FILTER
+========================= */
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        selectedGrade = button.dataset.grade;
+
+        renderSurveys();
+
+    });
+
+});
+
+
+/* =========================
+   SEARCH
+========================= */
+
+searchInput.addEventListener("input", () => {
+
+    clearSearch.style.display =
+        searchInput.value
+            ? "block"
+            : "none";
+
+    renderSurveys();
+
+});
+
+
+clearSearch.addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    clearSearch.style.display = "none";
+
+    renderSurveys();
+
+    searchInput.focus();
+
+});
+
+
+/* =========================
+   QR CODE
+========================= */
+
+function openQR(title, url) {
+
+    qrTitle.textContent = title;
+
+    qrContainer.innerHTML = "";
+
+    selectedQR = {
+        title,
+        url
+    };
+
+
+    new QRCode(qrContainer, {
+
+        text: url,
+
+        width: 200,
+        height: 200,
+
+        correctLevel: QRCode.CorrectLevel.H
+
+    });
+
+
+    qrModal.classList.remove("hidden");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeQR() {
+
+    qrModal.classList.add("hidden");
+
+    document.body.style.overflow = "";
+
+}
+
+
+modalClose.addEventListener("click", closeQR);
+
+
+qrModal.addEventListener("click", event => {
+
+    if (event.target === qrModal) {
+        closeQR();
+    }
+
+});
+
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+        closeQR();
+    }
+
+});
+
+
+/* =========================
+   DOWNLOAD QR
+========================= */
+
+downloadQR.addEventListener("click", () => {
+
+    if (!selectedQR) return;
+
+
+    const canvas = qrContainer.querySelector("canvas");
+
+    if (!canvas) return;
+
+
+    const link = document.createElement("a");
+
+    link.download =
+        `${selectedQR.title}-QR.png`;
+
+    link.href = canvas.toDataURL("image/png");
+
+    link.click();
+
+});
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return String(value)
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll('"', "&quot;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadSurveys();
