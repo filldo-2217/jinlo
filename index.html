@@ -1,40 +1,290 @@
-<!-- ========================= 이대훈짱 ^__^================================ -->
-<!-- index.html -->
-
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교 설문조사</title>
+    <meta name="description" content="학교 구성원의 의견을 모으는 설문조사 플랫폼">
 
-<title>HealthMind</title>
+    <link rel="stylesheet" href="css/style.css">
 
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
 
-body{
-margin:0;
-font-family:Pretendard,sans-serif;
-background:#07030f;
-color:white;
-overflow-x:hidden;
-}
+<body>
 
-.bg1{
-position:fixed;
-top:-200px;
-left:-100px;
-width:500px;
-height:500px;
-background:#7c3aed33;
-filter:blur(140px);
-border-radius:999px;
-z-index:-1;
-}
+<header class="header">
+    <div class="header-inner">
 
+        <a href="index.html" class="logo">
+            <span class="logo-mark">S</span>
+            <span>학교 설문조사</span>
+        </a>
+
+        <nav class="nav">
+            <a href="#surveys">설문 목록</a>
+            <a href="#about">이용 안내</a>
+        </nav>
+
+        <button class="menu-button" aria-label="메뉴 열기">
+            ☰
+        </button>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+
+            <div class="hero-text">
+
+                <span class="eyebrow">
+                    SCHOOL SURVEY
+                </span>
+
+                <h1>
+                    여러분의 의견이<br>
+                    <span>학교를 바꿉니다.</span>
+                </h1>
+
+                <p>
+                    학교에서 진행 중인 설문조사를 한곳에서 확인하고
+                    간편하게 참여할 수 있습니다.
+                </p>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="hero-card-icon">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>설문에 참여해주세요</strong>
+                    <p>작은 의견 하나도 학교를 만드는 데 도움이 됩니다.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SURVEY SECTION -->
+    <section class="survey-section" id="surveys">
+
+        <div class="section-header">
+
+            <div>
+                <span class="section-label">
+                    SURVEYS
+                </span>
+
+                <h2>설문 목록</h2>
+
+                <p>
+                    현재 참여할 수 있는 설문을 확인하세요.
+                </p>
+            </div>
+
+            <div class="survey-count">
+                <strong id="surveyCount">0</strong>
+                <span>개의 설문</span>
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="설문을 검색해보세요"
+                autocomplete="off"
+            >
+
+            <button id="clearSearch" class="clear-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- GRADE FILTER -->
+        <div class="filter-container">
+
+            <button class="filter-button active" data-grade="all">
+                전체
+            </button>
+
+            <button class="filter-button" data-grade="1">
+                1학년
+            </button>
+
+            <button class="filter-button" data-grade="2">
+                2학년
+            </button>
+
+            <button class="filter-button" data-grade="3">
+                3학년
+            </button>
+
+        </div>
+
+
+        <!-- SURVEY CARDS -->
+        <div class="survey-list" id="surveyList">
+
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>설문을 불러오는 중...</p>
+            </div>
+
+        </div>
+
+
+        <!-- EMPTY -->
+        <div class="empty-state hidden" id="emptyState">
+
+            <div class="empty-icon">
+                🔎
+            </div>
+
+            <h3>설문을 찾을 수 없습니다.</h3>
+
+            <p>
+                검색어나 학년을 다시 확인해주세요.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about">
+
+        <div class="about-inner">
+
+            <span class="section-label">
+                GUIDE
+            </span>
+
+            <h2>설문 참여 방법</h2>
+
+            <div class="guide-grid">
+
+                <div class="guide-card">
+                    <span class="guide-number">01</span>
+                    <h3>설문 찾기</h3>
+                    <p>
+                        학년을 선택하거나 검색하여
+                        원하는 설문을 찾아주세요.
+                    </p>
+                </div>
+
+                <div class="guide-card">
+                    <span class="guide-number">02</span>
+                    <h3>참여하기</h3>
+                    <p>
+                        설문 카드를 선택하고
+                        참여하기 버튼을 눌러주세요.
+                    </p>
+                </div>
+
+                <div class="guide-card">
+                    <span class="guide-number">03</span>
+                    <h3>QR로 참여하기</h3>
+                    <p>
+                        QR 버튼을 눌러 QR코드를
+                        휴대폰으로 스캔할 수도 있습니다.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- QR MODAL -->
+<div class="modal-overlay hidden" id="qrModal">
+
+    <div class="qr-modal">
+
+        <button class="modal-close" id="modalClose">
+            ×
+        </button>
+
+        <div class="qr-header">
+
+            <span class="section-label">
+                QR CODE
+            </span>
+
+            <h2 id="qrTitle">
+                설문 QR코드
+            </h2>
+
+            <p>
+                휴대폰으로 QR코드를 스캔하여<br>
+                설문에 참여하세요.
+            </p>
+
+        </div>
+
+        <div class="qr-container" id="qrcode"></div>
+
+        <button class="qr-download" id="downloadQR">
+            QR코드 저장
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer class="footer">
+
+    <div class="footer-inner">
+
+        <div>
+            <strong>학교 설문조사</strong>
+            <p>학생들의 의견을 모으는 공간</p>
+        </div>
+
+        <span>
+            © 2026 School Survey
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script src="js/main.js"></script>
+
+</body>
+</html>
 .bg2{
 position:fixed;
 bottom:-200px;
